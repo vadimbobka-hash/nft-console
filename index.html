@@ -3,129 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NFT Resale Console</title>
-    <!-- Подключаем официальный скрипт Telegram Web App -->
+    <title>NFT Консоль</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        :root {
-            --bg-color: var(--tg-theme-bg-color, #1f1f1f);
-            --text-color: var(--tg-theme-text-color, #ffffff);
-            --hint-color: var(--tg-theme-hint-color, #aaaaaa);
-            --button-color: var(--tg-theme-button-color, #2481cc);
-            --button-text-color: var(--tg-theme-button-text-color, #ffffff);
-            --card-bg: rgba(255, 255, 255, 0.05);
-        }
         body {
+            background-color: #0f1115;
+            color: #ffffff;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
             margin: 0;
             padding: 16px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .header h0, h1 {
-            font-size: 20px;
-            margin: 0 0 5px 0;
-        }
-        .subtitle {
-            font-size: 14px;
-            color: var(--hint-color);
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            width: 100%;
-            max-width: 400px;
-        }
-        .card {
-            background: var(--card-bg);
+        .gift-card {
+            background: #1c2128;
             border-radius: 16px;
+            width: 100%;
+            max-width: 340px;
             padding: 16px;
+            box-sizing: border-box;
+            border: 1px solid #30363d;
+            margin-top: 20px;
+        }
+        .gift-header {
+            font-size: 15px;
+            font-weight: 600;
+            color: #8b949e;
+            margin-bottom: 12px;
+        }
+        .gift-image-container {
+            background: linear-gradient(135deg, #2b3b55, #1f2836);
+            border-radius: 12px;
+            height: 240px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #38444d;
+        }
+        .gift-image-container img {
+            width: 130px;
+            height: 130px;
+            object-fit: contain;
+            filter: drop-shadow(0 8px 16px rgba(0,0,0,0.4));
+        }
+        .show-gift-btn {
+            background: rgba(0, 0, 0, 0.3);
+            border: none;
+            color: #8ab4f8;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-top: 24px;
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 6px;
+        }
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            max-width: 340px;
+            margin-top: 16px;
+        }
+        .btn {
+            background-color: #21262d;
+            color: #ffffff;
+            border: 1px solid #30363d;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
             text-align: center;
             cursor: pointer;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.2s, background 0.2s;
+            transition: background 0.2s;
         }
-        .card:active {
-            transform: scale(0.96);
-            background: rgba(255, 255, 255, 0.1);
+        .btn:active {
+            background-color: #30363d;
         }
-        .icon {
-            font-size: 28px;
-            margin-bottom: 8px;
-        }
-        .card-title {
-            font-size: 13px;
-            font-weight: 600;
-        }
-        .action-button {
-            margin-top: 24px;
-            width: 100%;
-            max-width: 400px;
-            background-color: var(--button-color);
-            color: var(--button-text-color);
-            border: none;
-            border-radius: 12px;
-            padding: 14px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
+        .btn-primary {
+            background-color: #238636;
+            border-color: #2ea043;
         }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>⚡ NFT Консоль</h1>
-        <div class="subtitle">Управление перепродажей</div>
-    </div>
-
-    <div class="grid">
-        <div class="card" onclick="triggerAction('Выставить на продажу')">
-            <div class="icon">🏷️</div>
-            <div class="card-title">Выставить на продажу</div>
-        </div>
-        <div class="card" onclick="triggerAction('Сделать предложение')">
-            <div class="icon">💎</div>
-            <div class="card-title">Сделать предложение</div>
-        </div>
-        <div class="card" onclick="triggerAction('Посмотреть коллекцию')">
-            <div class="icon">🖼️</div>
-            <div class="card-title">Коллекция</div>
-        </div>
-        <div class="card" onclick="triggerAction('Быстрая отправка')">
-            <div class="icon">🚀</div>
-            <div class="card-title">Быстрая отправка</div>
+    <div class="gift-card">
+        <div class="gift-header">Pool Float #185044</div>
+        <div class="gift-image-container">
+            <!-- Здесь картинка дракончика как на скрине -->
+            <svg width="120" height="120" viewBox="0 0 24 24" fill="#3fb950"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+            <button class="show-gift-btn">ПОКАЗАТЬ ПОДАРОК</button>
         </div>
     </div>
 
-    <button class="action-button" onclick="triggerAction('Главное действие')">Открыть кошелек / Баланс</button>
+    <div class="action-buttons">
+        <div class="btn" onclick="action('transfer')">Передать NFT @thipks</div>
+        <div class="btn btn-primary" onclick="action('confirm')">✅ Я отправил подарки</div>
+    </div>
 
     <script>
         let tg = window.Telegram.WebApp;
-        tg.expand(); // Разворачиваем на весь экран
+        tg.expand();
 
-        function triggerAction(actionName) {
-            // Отправляем данные обратно в чат с ботом или просто вибрируем
-            if (tg.HapticFeedback) {
-                tg.HapticFeedback.impactOccurred('medium');
+        function action(type) {
+            if (type === 'confirm') {
+                tg.sendData(JSON.stringify({ status: 'sent', gift: 'Pool Float #185044' }));
+            } else {
+                tg.showAlert("Передача инициирована...");
             }
-            
-            // Отправляем выбранное действие в чат (если открыто через бота)
-            tg.sendData(JSON.stringify({ action: actionName }));
-            
-            // Или просто закрываем приложение / показываем уведомление
-            tg.showAlert(`Выбрано: ${actionName}`);
         }
     </script>
 </body>
